@@ -61,7 +61,14 @@
         "lint:fix": "vendor/bin/pint",
         "rector": "vendor/bin/rector --dry-run",
         "rector:fix": "vendor/bin/rector",
-        "phpstan": "vendor/bin/phpstan"
+        "phpstan": "vendor/bin/phpstan",
+        "phpunit": "vendor/bin/phpunit",
+        "test": [
+            "@lint",
+            "@rector",
+            "@phpstan",
+            "@phpunit"
+        ]
     },
     "extra": {
         "laravel": {
