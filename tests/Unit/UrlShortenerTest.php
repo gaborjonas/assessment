@@ -6,7 +6,7 @@ namespace Tests\Unit;
 
 use App\Exceptions\CannotStoreUrlException;
 use App\UrlShortener\UrlEncoderInterface;
-use App\UrlShortener\UrlShortener;
+use App\UrlShortener\CachedUrlShortener;
 use App\UrlShortener\UrlShortenerInterface;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -26,7 +26,7 @@ final class UrlShortenerTest extends TestCase
 
     private function createUrlShortener(): UrlShortenerInterface
     {
-        return new UrlShortener(
+        return new CachedUrlShortener(
             $this->urlEncoder,
             $this->cacheManager,
         );

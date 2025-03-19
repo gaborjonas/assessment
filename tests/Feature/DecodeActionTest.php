@@ -81,7 +81,7 @@ final class DecodeActionTest extends TestCase
             ->assertOk()
             ->assertExactJson([
                 'short_url' => $shortUrl,
-                'url' => $longUrl,
+                'original_url' => $longUrl,
             ]);
     }
 

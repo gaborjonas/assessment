@@ -7,7 +7,7 @@ namespace App\UrlShortener;
 use App\Exceptions\CannotStoreUrlException;
 use Illuminate\Contracts\Cache\Repository as CacheInterface;
 
-final readonly class UrlShortener implements UrlShortenerInterface
+final readonly class CachedUrlShortener implements UrlShortenerInterface
 {
     public function __construct(
         private UrlEncoderInterface $urlEncoder,
@@ -19,6 +19,7 @@ final readonly class UrlShortener implements UrlShortenerInterface
         $shortUrl = $this->urlEncoder->encode($url);
 
         $short = $this->cacheManager->get($shortUrl);
+
         if ($short !== null) {
             return $shortUrl;
         }

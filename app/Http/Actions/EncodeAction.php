@@ -12,11 +12,11 @@ final readonly class EncodeAction
 {
     public function __invoke(EncodeRequest $request, UrlShortenerInterface $urlShortener): JsonResponse
     {
-        $url = (string) $request->string('url')->trim();
+        $originalUrl = $request->string('url')->trim()->toString();
 
         return new JsonResponse([
-            'original_url' => $url,
-            'short_url' => $urlShortener->shorten($url),
+            'original_url' => $originalUrl,
+            'short_url' => $urlShortener->shorten($originalUrl),
         ]);
     }
 }

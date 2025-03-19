@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace App\Http\Actions;
 
 use App\Http\Requests\DecodeRequest;
-use App\UrlShortener\UrlShortener;
+use App\UrlShortener\CachedUrlShortener;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 final readonly class DecodeAction
 {
-    public function __invoke(DecodeRequest $request, UrlShortener $urlShortener): JsonResponse
+    public function __invoke(DecodeRequest $request, CachedUrlShortener $urlShortener): JsonResponse
     {
-        $url = (string) $request->string('url')->trim();
+        $shortUrl = $request->string('url')->trim()->toString();
 
-        $originalUrl = $urlShortener->retrieve($url);
+        $originalUrl = $urlShortener->retrieve($shortUrl);
 
-        abort_if($originalUrl === null, 404, 'URL not found');
+        abort_if($originalUrl === null, JsonResponse::HTTP_NOT_FOUND, 'URL not found');
 
         return new JsonResponse([
-            'url' => $originalUrl,
-            'short_url' => $url,
+            'original_url' => $originalUrl,
+            'short_url' => $shortUrl,
         ]);
     }
 }
