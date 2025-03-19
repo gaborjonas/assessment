@@ -115,4 +115,41 @@ final class UrlShortenerTest extends TestCase {
         $this->expectException(CannotStoreUrlException::class);
         $urlShortener->shorten('long.url');
     }
+
+    #[Test]
+    public function retrieve_returns_null_if_not_set(): void
+    {
+        $shortUrl = 'short.url';
+
+        $this->cacheManager
+            ->expects($this->once())
+            ->method('get')
+            ->with($shortUrl)
+            ->willReturn(null);
+
+        $urlShortener = $this->createUrlShortener();
+
+        $longUrl = $urlShortener->retrieve($shortUrl);
+
+        $this->assertNull($longUrl);
+    }
+
+    #[Test]
+    public function retrieve_returns_url_if_set(): void
+    {
+        $shortUrl = 'short.url';
+        $expectedLongUrl = 'long.url';
+
+        $this->cacheManager
+            ->expects($this->once())
+            ->method('get')
+            ->with($shortUrl)
+            ->willReturn($expectedLongUrl);
+
+        $urlShortener = $this->createUrlShortener();
+
+        $longUrl = $urlShortener->retrieve($shortUrl);
+
+        $this->assertSame($expectedLongUrl, $longUrl);
+    }
 }

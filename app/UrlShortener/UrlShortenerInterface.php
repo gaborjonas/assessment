@@ -7,4 +7,6 @@ namespace App\UrlShortener;
 interface UrlShortenerInterface
 {
     public function shorten(string $url): string;
+
+    public function retrieve(string $url): ?string;
 }
