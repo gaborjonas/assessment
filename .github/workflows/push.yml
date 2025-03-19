@@ -19,7 +19,7 @@ jobs:
         uses: ./.github/actions/setup-php
 
       - name: Run Pint
-        run: composer pint
+        run: composer lint
 
   rector:
     name: PHP Code Quality
