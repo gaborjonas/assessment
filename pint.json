@@ -1,0 +1,32 @@
+{
+    "preset": "per",
+    "rules": {
+        "align_multiline_comment": true,
+        "array_indentation": true,
+        "array_push": true,
+        "array_syntax": true,
+        "no_trailing_comma_in_singleline": true,
+        "no_superfluous_phpdoc_tags": true,
+        "no_superfluous_elseif": true,
+        "no_spaces_around_offset": true,
+        "no_unused_imports": true,
+        "no_useless_else": true,
+        "no_useless_nullsafe_operator": true,
+        "no_useless_return": true,
+        "php_unit_attributes": true,
+        "php_unit_construct": true,
+        "php_unit_data_provider_name": true,
+        "php_unit_data_provider_return_type": true,
+        "phpdoc_array_type": true,
+        "phpdoc_indent": true,
+        "whitespace_after_comma_in_array": true,
+        "unary_operator_spaces": true,
+        "types_spaces": true,
+        "type_declaration_spaces": true,
+        "ternary_to_null_coalescing": true,
+        "switch_continue_to_break": true,
+        "strict_param": true,
+        "strict_comparison": true,
+        "single_quote": true
+    }
+}
