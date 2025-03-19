@@ -18,7 +18,6 @@ runs:
         coverage: none
       env:
         fail-fast: true
-      shell: bash
 
     - name: Get composer cache directory
       id: composer-cache
