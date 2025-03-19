@@ -19,6 +19,10 @@ final readonly class UrlEncoder implements UrlEncoderInterface
 
     private function createPath(string $path): string
     {
-        return substr(md5($path), 0, $this->pathLength);
+        return substr(
+            base64_encode(sha1($path)),
+            0,
+            $this->pathLength,
+        );
     }
 }

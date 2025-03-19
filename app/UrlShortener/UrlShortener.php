@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\UrlShortener;
 
 use App\Exceptions\CannotStoreUrlException;
-use Illuminate\Cache\CacheManager;
+use Illuminate\Contracts\Cache\Repository as CacheInterface;
 
 final readonly class UrlShortener implements UrlShortenerInterface
 {
     public function __construct(
         private UrlEncoderInterface $urlEncoder,
-        private CacheManager $cacheManager,
+        private CacheInterface $cacheManager,
     ) {}
 
     public function shorten(string $url): string
@@ -19,14 +19,15 @@ final readonly class UrlShortener implements UrlShortenerInterface
         $shortUrl = $this->urlEncoder->encode($url);
 
         $short = $this->cacheManager->get($shortUrl);
-
         if ($short !== null) {
             return $shortUrl;
         }
 
         $isStored = $this->cacheManager->put($shortUrl, $url);
 
-        throw_if($isStored === false, new CannotStoreUrlException());
+        if ($isStored === false) {
+            throw new CannotStoreUrlException();
+        }
 
         return $shortUrl;
     }
@@ -35,7 +36,7 @@ final readonly class UrlShortener implements UrlShortenerInterface
     {
         $cachedUrl = $this->cacheManager->get($url);
 
-        if ($cachedUrl !== null) {
+        if ($cachedUrl === null) {
             return null;
         }
 

@@ -33,7 +33,7 @@ final class EncodeActionTest extends TestCase
     public static function validation_test_data_provider(): array
     {
         return [
-            [
+            'no url' => [
                 'input' => '',
                 'expectedError' => [
                     'message' => 'The url field is required.',
@@ -44,7 +44,7 @@ final class EncodeActionTest extends TestCase
                     ],
                 ],
             ],
-            [
+            'invalid url' => [
                 'input' => 'invalid-url',
                 'expectedError' => [
                     'message' => 'The url field must be a valid URL.',
@@ -70,8 +70,8 @@ final class EncodeActionTest extends TestCase
         $response
             ->assertOk()
             ->assertExactJson([
+                'original_url' => $longUrl,
                 'short_url' => $shortUrl,
-                'url' => $longUrl,
             ]);
     }
 
