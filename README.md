@@ -1,14 +1,17 @@
 ## URL shortener assignment
 
 The app was built using Sail, therefore it requires docker and compose.
-The containers use the default ports (80, 6379). If these conflict with other ports, update `APP_PORT` and `FORWARD_REDIS_PORT` in `.env.example` before running the container.
 
 **Setting up the application**
 
-Clone the repository:
+Clone the repository
 ```sh
 git clone git@github.com:gaborjonas/assessment.git && cd assessment
 ```
+
+The containers use the default ports (80, 6379).
+If these are already used, update `APP_PORT`, `REDIS_PORT` and FORWARD_REDIS_PORT` in `.env.example` before running the containers.
+
 
 Install composer packages, create .env, run the containers and generate app key
 ```sh
@@ -23,9 +26,9 @@ docker run --rm \
     ./vendor/bin/sail artisan key:generate
 ```
 
-**Running checks and test**
+**Running checks and tests**
 ```sh
-vendor/bin/sail run composer test
+./vendor/bin/sail run composer test
 ```
 
 **Testing endpoints**
