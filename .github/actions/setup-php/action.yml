@@ -18,6 +18,7 @@ runs:
         coverage: none
       env:
         fail-fast: true
+      shell: bash
 
     - name: Get composer cache directory
       id: composer-cache
@@ -30,6 +31,7 @@ runs:
         path: ${{ steps.composer-cache.outputs.dir }}
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
+      shell: bash
 
     - name: Install composer packages
       run: composer install --classmap-authoritative
@@ -39,3 +41,4 @@ runs:
       run: |
         cp .env.example .env
         php artisan key:generate
+      shell: bash
