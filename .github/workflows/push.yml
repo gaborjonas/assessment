@@ -71,4 +71,4 @@ jobs:
         uses: ./.github/actions/setup-php
 
       - name: Run phpunit
-        run: ./vendor/bin/phpunit --no-coverage --configuration phpunit-development.xml --testsuite ${{ matrix.test-suite }}
+        run: ./vendor/bin/phpunit --no-coverage --testsuite ${{ matrix.test-suite }}
