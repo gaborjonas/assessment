@@ -6,7 +6,6 @@ use App\UrlShortener\UrlEncoder;
 use App\UrlShortener\UrlEncoderInterface;
 use App\UrlShortener\UrlShortener;
 use App\UrlShortener\UrlShortenerInterface;
-use Illuminate\Config\Repository;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
