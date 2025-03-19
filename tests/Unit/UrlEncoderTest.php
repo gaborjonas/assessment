@@ -7,8 +7,8 @@ use App\UrlShortener\UrlEncoderInterface;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-final class UrlEncoderTest extends TestCase {
-
+final class UrlEncoderTest extends TestCase
+{
     private function createUrlEncoder(string $scheme, string $domain, int $pathLength): UrlEncoderInterface
     {
         return new UrlEncoder($scheme, $domain, $pathLength);

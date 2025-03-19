@@ -1,0 +1,74 @@
+name: "Continuous Integration"
+
+on:
+  push:
+
+concurrency:
+  group: group-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pint:
+    name: PHP Coding Standards
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP and Composer Packages
+        uses: ./.github/actions/setup-php
+
+      - name: Run Pint
+        run: composer pint
+
+  rector:
+    name: PHP Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP and Composer Packages
+        uses: ./.github/actions/setup-php
+
+      - name: Run PHPStan
+        run: composer rector
+
+  phpstan:
+    name: PHP Static Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP and Composer Packages
+        uses: ./.github/actions/setup-php
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan --error-format=github
+
+  phpunit:
+    name: PHP Tests
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
+    strategy:
+      fail-fast: false
+      matrix:
+        test-suite: [
+          'Feature',
+          'Unit',
+        ]
+    needs: [ pint, rector, phpstan ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP and Composer Packages
+        uses: ./.github/actions/setup-php
+
+      - name: Run phpunit
+        run: ./vendor/bin/phpunit --no-coverage --configuration phpunit-development.xml --testsuite ${{ matrix.test-suite }}

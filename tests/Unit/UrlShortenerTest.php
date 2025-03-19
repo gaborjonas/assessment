@@ -13,8 +13,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Contracts\Cache\Repository as CacheInterface;
 
-final class UrlShortenerTest extends TestCase {
-
+final class UrlShortenerTest extends TestCase
+{
     private UrlEncoderInterface&MockObject $urlEncoder;
     private CacheInterface&MockObject $cacheManager;
 

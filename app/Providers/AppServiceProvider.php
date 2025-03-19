@@ -19,8 +19,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(UrlEncoder::class, function (Application $app) {
 
-            /** @var Repository $config */
-            $config = $app->get('config');
+            $config = $app->get(\Illuminate\Contracts\Config\Repository::class);
             return new UrlEncoder(
                 $config->string('url_shorting.scheme'),
                 $config->string('url_shorting.domain'),

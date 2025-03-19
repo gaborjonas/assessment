@@ -1,0 +1,41 @@
+name: "Set up PHP and Composer packages"
+description: Set up PHP environment and composer packages for the project
+inputs:
+  php-version:
+    description: PHP version
+    required: false
+    default: '8.4'
+runs:
+  using: "composite"
+  steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ inputs.php-version }}
+        extensions: curl, gd, redis
+        ini-values: memory_limit=-1, error_reporting=E_ALL, display_errors=On
+        tools: composer
+        coverage: none
+      env:
+        fail-fast: true
+
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: Install composer packages
+      run: composer install --classmap-authoritative
+      shell: bash
+
+    - name: Setup Application environment
+      run: |
+        cp .env.example .env
+        php artisan key:generate
