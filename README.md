@@ -2,18 +2,18 @@
 
 The app was built using Sail, therefore it requires docker and compose.
 
-**Setting up the application**
+### Setting up the application
 
-Clone the repository
+**Clone the repository**
 ```sh
 git clone git@github.com:gaborjonas/assessment.git && cd assessment
 ```
 
 The containers use the default ports (80, 6379).
-If these are already used, update `APP_PORT`, `REDIS_PORT` and FORWARD_REDIS_PORT` in `.env.example` before running the containers.
+If these are already used, update `APP_PORT`, `REDIS_PORT` and `FORWARD_REDIS_PORT` in `.env.example` before running the containers.
 
 
-Install composer packages, create .env, run the containers and generate app key
+**Install composer packages, create .env, run the containers and generate app key**
 ```sh
 docker run --rm \
     -u "$(id -u):$(id -g)" \
