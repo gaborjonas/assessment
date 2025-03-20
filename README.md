@@ -1,8 +1,8 @@
+
 ## URL shortener assignment
 
-The app was built using Sail, therefore it requires docker and compose.
-
-### Setting up the application
+**Requirements**
+Docker and compose
 
 **Clone the repository**
 ```sh
@@ -32,6 +32,7 @@ docker run --rm \
 ```sh
 ./vendor/bin/sail run composer test
 ```
+or [See workflows](https://github.com/gaborjonas/assessment/actions)
 
 **Testing endpoints**
 
