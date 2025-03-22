@@ -31,7 +31,7 @@ jobs:
       - name: Setup PHP and Composer Packages
         uses: ./.github/actions/setup-php
 
-      - name: Run PHPStan
+      - name: Run Rector
         run: composer rector
 
   phpstan:
@@ -58,10 +58,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        test-suite: [
-          'Feature',
-          'Unit',
-        ]
+        test-suite: ['Feature', 'Unit']
     needs: [ pint, rector, phpstan ]
     steps:
       - name: Checkout repository
@@ -70,5 +67,5 @@ jobs:
       - name: Setup PHP and Composer Packages
         uses: ./.github/actions/setup-php
 
-      - name: Run phpunit
+      - name: Run PHPunit
         run: ./vendor/bin/phpunit --no-coverage --testsuite ${{ matrix.test-suite }}
